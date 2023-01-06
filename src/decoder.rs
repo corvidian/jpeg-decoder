@@ -208,6 +208,13 @@ impl<R: Read> Decoder<R> {
         self.xmp_data.as_deref()
     }
 
+    /// Returns raw photoshop irb data if the image contains any.
+    ///
+    /// The returned value will be `None` until a call to `decode` has returned `Ok`.
+    pub fn photoshop_irb(&self) -> Option<&[u8]> {
+        self.psir_data.as_deref()
+    }
+
     /// Returns the embeded icc profile if the image contains one.
     pub fn icc_profile(&self) -> Option<Vec<u8>> {
         let mut marker_present: [Option<&IccChunk>; 256] = [None; 256];
